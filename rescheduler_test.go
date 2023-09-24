@@ -65,3 +65,19 @@ func TestRescheduler_TimeGap(t *testing.T) {
 		assert.Equal(t, exp, *a, "Error on %d runs", i+1)
 	}
 }
+
+func TestRescheduler_FinishedBeforeWait(t *testing.T) {
+	r := NewRescheduler(func() {
+		time.Sleep(time.Millisecond * 100)
+	})
+
+	r.Run()
+
+	time.Sleep(time.Millisecond * 200)
+
+	select {
+	case <-r.done:
+	default:
+		t.Fatal("Should receive from done channel now")
+	}
+}
