@@ -1,4 +1,4 @@
-module github.com/MrMelon54/rescheduler
+module github.com/mrmelon54/rescheduler
 
 go 1.20
 
